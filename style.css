@@ -1,6 +1,6 @@
 @font-face {
      font-family: 'shabnam';
-     src: url(./Assets/fonts/Shabnam.woff) format('woff');
+     src: url(./Assets/Fonts/Shabnam.woff) format('woff');
 }
 * {
      box-sizing: border-box;
