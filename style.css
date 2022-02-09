@@ -1,0 +1,142 @@
+@font-face {
+     font-family: 'shabnam';
+     src: url(./Assets/fonts/Shabnam.woff) format('woff');
+}
+* {
+     box-sizing: border-box;
+}
+body {
+     font-family: 'shabnam';
+     background-color: black;
+}
+hr {
+     margin-top: 25px;
+}
+.page-container {
+     height: 710px;
+     position: absolute;
+     right: 50%;
+     top: 50%;
+     transform: translate(50%, -50%);
+     width: 350px;
+     background: linear-gradient(rgb(76, 0, 255), rgb(0, 164, 175));
+     color: white;
+     padding: 10px 20px 30px 20px;
+     text-align: center;
+     position: relative;
+}
+.hourly,
+.daily {
+     display: flex;
+     justify-content: space-between;
+}
+.info-box {
+     width: 50px;
+     border-right: 1px solid rgb(167, 167, 167);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+}
+.info-box:last-child {
+     border-right: none;
+}
+.info-box h6,
+p {
+     margin: 0px;
+}
+.info-box img {
+     display: block;
+}
+/* details */
+
+.details p {
+     display: flex;
+     justify-content: space-between;
+}
+/* footer */
+footer {
+     background-color: rgb(0, 164, 175);
+     width: 100%;
+     position: absolute;
+     bottom: 0;
+     right: 0;
+     display: flex;
+     justify-content: space-between;
+}
+footer a {
+     text-decoration: none;
+     color: white;
+     font-size: 12px;
+     position: absolute;
+     bottom: 0;
+}
+footer button {
+     position: absolute;
+     right: 0;
+     bottom: 0;
+     background-color: inherit;
+     border: 0;
+     color: white;
+     cursor: pointer;
+}
+/* loading */
+
+.loading-container {
+     position: fixed;
+     top: 0;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     background: linear-gradient(rgb(76, 0, 255), rgb(0, 164, 175));
+     color: white;
+}
+.loading-container p {
+     position: absolute;
+     top: 50%;
+     right: 50%;
+     transform: translate(50%, -50%);
+     font-size: 1.5rem;
+}
+/* search */
+
+.search-button {
+     background-color: inherit;
+     color: white;
+     border: 0;
+     cursor: pointer;
+     position: absolute;
+     top: 5px;
+     right: 5px;
+}
+.search-container {
+     position: fixed;
+     top: 0;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     background: linear-gradient(rgb(76, 0, 255), rgb(0, 164, 175));
+     visibility: hidden;
+     z-index: 1;
+}
+.search-dialog {
+     position: absolute;
+     top: 50%;
+     right: 50%;
+     transform: translate(50%, -50%);
+}
+.search-dialog input {
+     padding: 10px;
+     font-family: 'shabnam';
+     margin-top: 20px;
+     border-radius: 10px;
+     border: 0;
+     text-align: center;
+}
+.search-dialog button {
+     margin-top: 20px;
+     padding: 5px 10px;
+     font-family: 'shabnam';
+     color: rgb(76, 0, 255);
+     cursor: pointer;
+     border-radius: 10px;
+}
