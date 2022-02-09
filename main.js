@@ -47,7 +47,7 @@ form.addEventListener('submit', (e) => {
 function fetchData(cityName) {
      // url for requesting the geolocation of the city
      const API_GEOLOCATION_URL =
-          'http://api.openweathermap.org/geo/1.0/direct?q=' +
+          'https://api.openweathermap.org/geo/1.0/direct?q=' +
           cityName +
           '&lang=fa' +
           '&appid=' +
@@ -161,7 +161,7 @@ function createInfoBox(parent, title, probablity, iconURL) {
      const icon = document.createElement('img');
      icon.setAttribute(
           'src',
-          ' http://openweathermap.org/img/wn/' + iconURL + '.png'
+          ' https://openweathermap.org/img/wn/' + iconURL + '.png'
      );
      const precipitation = document.createElement('p');
      precipitation.textContent = (probablity * 100).toFixed(0) + '%';
