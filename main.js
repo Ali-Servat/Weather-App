@@ -9,13 +9,51 @@ const form = document.querySelector('form');
 const returnBtn = document.getElementById('return-button');
 const cityInput = document.getElementById('city-input');
 
-let city = 'tabriz';
+let city;
 let isLoading = true;
+let lat;
+let lon;
 
 // API key
 const API_KEY = 'e7ed094d029d6efb7440323fdbe93c8f';
 
-window.addEventListener('load', fetchData(city));
+// run the app when the window comes up
+window.onload = function () {
+     initialFunction().then(sendInitialRequest);
+};
+
+// initial function
+function initialFunction() {
+     return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition((position) => {
+               lat = position.coords.latitude;
+               lon = position.coords.longitude;
+               resolve([lat, lon]);
+               if (lat === undefined && lon === undefined) {
+                    reject('Error');
+                    return;
+               }
+          });
+     });
+}
+
+// initial request
+function sendInitialRequest() {
+     const REVERSE_GEOLOCATION_URL =
+          'https://api.openweathermap.org/geo/1.0/reverse?lat=' +
+          lat +
+          '&lon=' +
+          lon +
+          '&limit=1&appid=' +
+          API_KEY;
+
+     fetch(REVERSE_GEOLOCATION_URL)
+          .then((response) => response.json())
+          .then((response) => {
+               city = response[0].name;
+               fetchData(city);
+          });
+}
 
 // refresh button event listener
 refreshBtn.addEventListener('click', () => {
@@ -57,9 +95,8 @@ function fetchData(cityName) {
      fetch(API_GEOLOCATION_URL)
           .then((response) => response.json())
           .then((response) => {
-               console.log(response);
-               const lat = response[0].lat;
-               const lon = response[0].lon;
+               lat = response[0].lat;
+               lon = response[0].lon;
                const localNameFa = response[0].local_names.fa;
                const localNameEn = response[0].local_names.en;
                return { lat, lon, localNameFa, localNameEn };
@@ -78,12 +115,14 @@ function fetchData(cityName) {
                fetch(API_REQUEST_URL)
                     .then((response) => response.json())
                     .then((response) => {
-                         console.log(response);
                          // function for updating UI
                          handleResponse(response, localNameFa, localNameEn);
                          isLoading = false;
                          checkLoading(isLoading);
                     });
+          })
+          .catch((error) => {
+               console.log(error.message);
           });
 }
 
