@@ -8,6 +8,8 @@ const searchBtn = document.getElementById('search-button');
 const form = document.querySelector('form');
 const returnBtn = document.getElementById('return-button');
 const cityInput = document.getElementById('city-input');
+const retryContainer = document.getElementById('retry-container');
+const retryBtn = document.getElementById('retry-button');
 
 let city;
 let isLoading = true;
@@ -21,6 +23,36 @@ const API_KEY = 'e7ed094d029d6efb7440323fdbe93c8f';
 window.onload = function () {
      initialFunction().then(sendInitialRequest);
 };
+
+// refresh button event listener
+refreshBtn.addEventListener('click', () => {
+     isLoading = true;
+     checkLoading(isLoading);
+     updateUI(city);
+});
+
+// search button in the main page event listener
+searchBtn.addEventListener('click', () => {
+     cityInput.value = '';
+     searchContainer.style.visibility = 'visible';
+     cityInput.focus();
+});
+
+// return and submit event listeners for city input page
+returnBtn.addEventListener('click', () => {
+     searchContainer.style.visibility = 'hidden';
+});
+form.addEventListener('submit', (e) => {
+     e.preventDefault();
+     let inputVal = cityInput.value;
+     city = inputVal;
+     updateUI(city);
+     searchContainer.style.visibility = 'hidden';
+});
+
+retryBtn.addEventListener('click', () => {
+     initialFunction().then(sendInitialRequest);
+});
 
 // initial function
 function initialFunction() {
@@ -54,32 +86,6 @@ function sendInitialRequest() {
                fetchData(city);
           });
 }
-
-// refresh button event listener
-refreshBtn.addEventListener('click', () => {
-     isLoading = true;
-     checkLoading(isLoading);
-     updateUI(city);
-});
-
-// search button in the main page event listener
-searchBtn.addEventListener('click', () => {
-     cityInput.value = '';
-     searchContainer.style.visibility = 'visible';
-     cityInput.focus();
-});
-
-// return and submit event listeners for city input page
-returnBtn.addEventListener('click', () => {
-     searchContainer.style.visibility = 'hidden';
-});
-form.addEventListener('submit', (e) => {
-     e.preventDefault();
-     let inputVal = cityInput.value;
-     city = inputVal;
-     updateUI(city);
-     searchContainer.style.visibility = 'hidden';
-});
 
 // function to get weather data of the selected city
 function fetchData(cityName) {
@@ -119,10 +125,12 @@ function fetchData(cityName) {
                          handleResponse(response, localNameFa, localNameEn);
                          isLoading = false;
                          checkLoading(isLoading);
+                         retryContainer.style.visibility = 'hidden';
                     });
           })
           .catch((error) => {
                console.log(error.message);
+               retryContainer.style.visibility = 'visible';
           });
 }
 
@@ -283,7 +291,7 @@ function checkLoading(isLoading) {
 }
 
 // function for updating UI
-function updateUI() {
+function updateUI(city) {
      hourlyDiv.innerHTML = '';
      dailyDiv.innerHTML = '';
      fetchData(city);
