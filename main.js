@@ -21,7 +21,7 @@ const API_KEY = 'e7ed094d029d6efb7440323fdbe93c8f';
 
 // run the app when the window comes up
 window.onload = function () {
-     initialFunction().then(sendInitialRequest);
+     initialFunction();
 };
 
 // refresh button event listener
@@ -64,6 +64,8 @@ function initialFunction() {
                if (lat === undefined && lon === undefined) {
                     reject('Error');
                     return;
+               } else {
+                    sendInitialRequest();
                }
           });
      });
